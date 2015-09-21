@@ -1,3 +1,9 @@
+body {
+    -moz-transform: scale(0.8, 0.8);
+    zoom: 0.8;
+    zoom: 80%;
+}
+
 .nav a {
   color: #5a5a5a;
   font-size: 11px;
@@ -36,31 +42,64 @@
 }
 
 .learn-more {
-  background-color: #f7f7f7;
+  background-image:url('http://pozniak.pl/wp/wp-content/uploads/2011/11/2011.11.09.20.27.22.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .learn-more h3 {
   font-family: 'Shift', sans-serif;
   font-size: 18px;
   font-weight: bold;
+  color: #fff;
 }
 
 .learn-more a {
-  color: #00b0ff;
+  color: #FFF;
 }
 
-.listing {
-  margin: auto;
+.learn-more p {
+  color: #FFF;
 }
 
-.news h1 {
+.news h2 {
   font-family: 'Shift', sans-serif;
   font-weight: bold;
   font-size: 47px; 
   text-align: center;
+
 }
 
 .col-md-8 {
   margin-top: 10px;
+  
+}
+
+.thumbnail a{
+
+  color: #5a5a5a;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+
+}
+
+.bottom-w {
+
+  background-image: url('http://cdn1.eveonline.com/www/newssystem/media/67574/1/Space.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+.bottom-w  h3{
+  color: #fff;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: right;
+}
+
+.bottom-w  p{
+color: #fff;
+font-size: 16px;
+
   
 }

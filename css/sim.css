@@ -1,0 +1,22 @@
+body{
+
+background-image: url('https://evetravel.files.wordpress.com/2012/02/immensea-5.jpg');
+ 
+background-size: 500px;
+  background-repeat: no-repeat;
+ background-size: 100%;
+
+}
+
+.working p {
+
+	font-size: 79px;
+color: #fff;
+text-align: center;
+
+}
+
+.raw {
+
+	margin: auto;
+}

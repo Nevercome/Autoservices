@@ -1,0 +1,13 @@
+body { 
+    background: url('http://ewallpapers-hub.com/wp-content/uploads/2015/01/space-wallpaper-hd-2.jpg') no-repeat;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+.pull-center p {
+
+text-align: center;
+
+	color: #F52B2B;
+}

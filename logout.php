@@ -1,16 +1,21 @@
 <?php
-session_start();
+include_once 'functions.php';
+sec_session_start();
+ 
+// Unset all session values 
+$_SESSION = array();
+ 
+// get session parameters 
+$params = session_get_cookie_params();
+ 
+// Delete the actual cookie. 
+setcookie(session_name(),
+        '', time() - 42000, 
+        $params["path"], 
+        $params["domain"], 
+        $params["secure"], 
+        $params["httponly"]);
+ 
+// Destroy session 
 session_destroy();
-echo 'Cerraste sesión';
-echo '<script> window.location="index.php"; </script>';
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Saliendo...</title>
-	<meta charset="utf-8">
-</head>
-<body>
-<script language="javascript">location.href = "index.php";</script>
-</body>
-</html>
+header('Location: ../index.php');

@@ -1,8 +1,10 @@
 <?php
-  session_start();
+include_once 'db_connect.php';
+include_once 'functions.php';
+ 
+sec_session_start();
+
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -29,7 +31,7 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-
+<script src="js/bug.js"></script>
   </head>
 
   <body>
@@ -69,26 +71,26 @@
 
       <ul class="nav navbar-nav navbar-right">
 
-      <li data-toggle="modal"><a href=""> <?php if(isset($_SESSION['user'])){ 
+      <li data-toggle="modal"><a href=""> 
 
-$name = $_SESSION['user'];
+
+      <?php  if (login_check($mysqli) == true) {
+
+$name = htmlentities($_SESSION['username']);
 
         echo $name; } ?> </a></li>
 
-  <?php 
-       if(isset($_SESSION['user'])){
-
+        <?php
+        if (login_check($mysqli) == true) {
+      echo '<li><a href="#">Your Characters</a></li> ';//  Sign up
        echo '<li data-toggle="modal" data-target="#Logoff"><a href="logout.php">Log Out</a></li>  '; // Log Off
+        } else {
+             
+      echo '<li ><a href="login.php">Log in</a></li>';// Log In
 
-      } else {
-
-      
-
-      echo '<li data-toggle="modal" data-target="#Login"><a href="#">Log in</a></li>';// Log In
-
-      echo '<li><a href="signuppage.php">Sign up</a></li> ';//  Sign up
-    }
-      ?>
+      echo '<li><a href="register.php">Sign up</a></li> ';//  Sign up
+                }
+?>   
 
    
         <li><a href="#">Help</a></li>
@@ -121,23 +123,16 @@ $name = $_SESSION['user'];
 
 <div class="row">
   <div class="news" >
-    <h2>Next Update!</h2>
+    <h2>Character Bazaar</h2>
   </div>
 </div>
 
 <hr>
 
     <div class="learn-more">
-	    <div class="container">
-		    <div class="row">
-          <div class="col-md-8 col-md-4">
-            <h3>Eve Online!</h3>
-		      	<p>is a massively multiplayer online game set 23,000 years in the future. As an elite pilot of one of the four controlling races, you will explore, build, and dominate across a universe of over 7,000 star systems.</p>
-		      	<p>Learn how to travel in <a href="#">Eve Online </a></p>
-		      </div>
-
-        </div>
-      </div><!-- /.container-->
+<table class="table">
+  ...
+</table>
     </div>
 
 <hr>
@@ -299,121 +294,55 @@ $name = $_SESSION['user'];
   </div> <!-- -->
 </div><!-- -->
 
-<!-- Login Model -->
-<form method="post" action="validar.php">
-  <div id="Login" class="modal fade" role="dialog" >
-   <div class="modal-dialog">
 
-    <!-- Modal content-->
-    <div class="modal-content">
-    <div class="modal-body"  >
-
-         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-
-        <h1 class="text-center">Login</h1>
-    
-
-
-
-
-  <form class="form col-md-12 center-block">
-  <div class="form-group">
-    <label for="exampleInputEmail1">Email address</label>
-    <input type="username" class="form-control input-lg" placeholder="Email" name= "user" required>
-  </div>
-  <div class="form-group">
-    <label for="exampleInputPassword1">Password</label>
-    <input type="password" class="form-control input-lg" placeholder="Password" name="pw" required>
-  </div>
-
-  <div class="form-group">
-
-
-                    <button class="btn btn-primary btn-lg btn-block" name= "login">Sign In</button>
-              <span class="pull-right"><a href="#">Register</a></span><span><a href="#">Need help?</a></span>
+<!--
+    <div class="feedback left">
+      <div class="tooltips">
+          <div class="btn-group dropup">
+            <button type="button" class="btn btn-primary dropdown-toggle btn-circle btn-lg" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-bug fa-2x" title="Report Bug"></i>
+            </button>
+            <ul class="dropdown-menu dropdown-menu-right dropdown-menu-form">
+              <li>
+                <div class="report">
+                  <h2 class="text-center">Report Bug</h2>
+                  <form class="doo" method="post" action="#"><!-- Report.php -->
+                  <!--
+                    <div class="col-sm-12">
+                      <textarea required name="comment" class="form-control" placeholder="Please tell us what bug or issue you've found, provide as much detail as possible."></textarea>
+                      <input name="screenshot" type="hidden" class="screen-uri">
+                      <span class="screenshot pull-right"><i class="fa fa-camera cam" title="Take Screenshot"></i></span>
+                     </div>
+                     <div class="col-sm-12 clearfix">
+                      <button class="btn btn-primary btn-block">Submit Report</button>
+                     </div>
+                 </form>
+                </div>
+                <div class="loading text-center hideme">
+                  <h2>Please wait...</h2>
+                  <h2><i class="fa fa-refresh fa-spin"></i></h2>
+                </div>
+                <div class="reported text-center hideme">
+                  <h2>Thank you!</h2>
+                  <p>Your submission has been received, we will review it shortly.</p>
+                   <div class="col-sm-12 clearfix">
+                      <button class="btn btn-success btn-block do-close">Close</button>
+                   </div>
+                </div>
+                <div class="failed text-center hideme">
+                  <h2>Oh no!</h2>
+                  <p>It looks like your submission was not sent.<br><br><a href="mailto:">Try contacting us by the old method.</a></p>
+                   <div class="col-sm-12 clearfix">
+                      <button class="btn btn-danger btn-block do-close">Close</button>
+                   </div>
+                </div>
+              </li>
+            </ul>
           </div>
-
-             <label>
-             <input type="checkbox"> remember me
-            </label>
-
-          </form>
-        
-
-              <div class="modal-footer">
-          <div class="col-md-12">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      </div>  
       </div>
-</div>
     </div>
-  </div>
-  </div>
-</form>
+    -->
 
-
-<!-- Sign up Model -->
-
-    <form method="post" action="signup.php" class="form col-md-12 center-block">
-<div id="Signup" class="modal fade" role="dialog">
-  <div class="modal-dialog">
-
-    <!-- Modal content-->
-    <div class="modal-content">
-  <div class="modal-body" >
-  
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">X</button>
-        <h1 class="text-center">Sign up</h1>
-
-
-
-
-
-
- 
-<form class="form col-md-12 center-block">
-<div class="form-group">
-         <label  id="basic-addon1">Username</label>
-        <input type="text" class="form-control input-lg" name="user" autocomplete="off" placeholder="Password" required>
-        </div>
-
-        <div class="form-group">
-         <label  id="basic-addon1">Password</label>
-        <input type="password" class="form-control input-lg" name="pw" autocomplete="off" placeholder="Password" required>
-       </div>
-
-        <div class="form-group">
-         <label  id="basic-addon1">Confirm Password</label>
-        <input type="password" class="form-control input-lg" name="cpw" autocomplete="off" placeholder="Password" required>
-        </div>
-
-        <div class="form-group">
-         <label  id="basic-addon1">Email</label>
-        <input type="email" class="form-control input-lg" name="email" autocomplete="off"  placeholder="Password" required>.
-
-        </div>
-
-<div class="form-group">
-
-             <label>
-             <input type="checkbox" required> Option one is this and that&mdash;be sure to include why it's great
-            </label>
-
-   <button class="btn btn-primary btn-lg btn-block" name= "submitreg">Sign up</button>
-   </div>
-                <div class="modal-footer">
-          <div class="col-md-12">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
-      </div>  
-      </div>
-      
-    </form>
-  </div>
-</div>
-</div>
-</div>
-</div>
-</form>
 
   </body>
 </html>
